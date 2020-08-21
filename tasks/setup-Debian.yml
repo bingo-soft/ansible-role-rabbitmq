@@ -1,4 +1,19 @@
 ---
+
+- name: Get script repo erlang installations
+  get_url:
+    url: "{{ erlang_repo_deb_sh }}"
+    dest: /tmp/script.rpm.sh
+    mode: 'a+x'
+
+- name: Install repo rabbitmq_erlang.repo
+  shell: /tmp/script.rpm.sh
+
+- name: Ensure erlang is installed.
+  package:
+    name: erlang
+    state: present
+
 - name: Download RabbitMQ package.
   get_url:
     url: "{{ rabbitmq_deb_url }}"
